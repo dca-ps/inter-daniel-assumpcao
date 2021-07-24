@@ -1,0 +1,107 @@
+apply from: 'variants.gradle'
+
+ext {
+    BOOLEAN = "Boolean"
+    INT_ARRAY = "Integer[]"
+    INT = "int"
+    STRING = "String"
+
+    // Used to identify the build parameter type in buildParameters.gradle
+    BuildParameterType = "type"
+    // Used to identify the build parameter values in buildParameters.gradle
+    BuildParameterValues = "values"
+
+    // Supported categories of build parameters
+    BuildConfig = "BuildConfig"
+    ResValue = "ResValue"
+    ManifestPlaceholder = "ManifestPlaceholder"
+
+    setupBuildParameters = { variant, flavor ->
+        flavorData = rootProject.ext["flavors"].get(flavor.name)
+
+
+        flavorData.each { parameterKey, parameter ->
+            setVariantBuildParameter(variant, parameterKey, parameter)
+        }
+
+    }
+
+
+    setVariantBuildParameter = { variant, parameterKey, parameter ->
+        def value
+        try {
+            value = getVariantBuildParameterValue(variant, parameter)
+            if (parameter instanceof Map) {
+                type = parameter[BuildParameterType]
+                if (type == BuildConfig) {
+                    setVariantBuildConfig(variant, parameterKey, value)
+                } else if (type == ResValue) {
+                    setVariantResValue(variant, parameterKey, value)
+                } else if (type == ManifestPlaceholder) {
+                    setVariantManifestPlaceholder(variant, parameterKey, value)
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+
+    setVariantBuildConfig = { variant, key, value ->
+        try {
+
+            if (value instanceof String) {
+                variant.buildConfigField STRING, key, "\"${value}\""
+            } else {
+                variant.buildConfigField value.getClass().getSimpleName(), key, "${value}"
+            }
+            println("setVariantBuildConfig: " + key + " -> " + value)
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+
+    setVariantResValue = { variant, key, value ->
+        try {
+            if (value instanceof String) {
+                variant.resValue STRING.toLowerCase(), key, "${value}"
+            } else {
+                variant.resValue value.getClass().getSimpleName().toLowerCase(), key, "${value}"
+            }
+            println("setVariantResValue: " + key + " -> " + value)
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+
+    setVariantManifestPlaceholder = { variant, key, value ->
+        try {
+            variant.mergedFlavor.manifestPlaceholders.put(key, value)
+            println("setVariantManifestPlaceholder: " + key + " -> " + value)
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+
+    getVariantBuildParameterValue = { variant, parameter ->
+        def value
+        try {
+            if (parameter instanceof Map) {
+                def values = parameter[BuildParameterValues]
+                if (values != null) {
+                    value = values["$variant.buildType.name"]
+                } else {
+                    value = parameter["$variant.buildType.name"]
+                }
+            } else {
+                value = parameter
+            }
+
+            return value
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+}
+
+

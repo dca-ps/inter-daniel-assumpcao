@@ -1,0 +1,23 @@
+ext {
+    flavors = [
+            github: [
+
+                    HOST_URL   : [type  : 'BuildConfig',
+                                  values: [
+                                          debug  : 'https://api.github.com/',
+                                          release: 'https://api.github.com/'
+                                  ]],
+                    AUTHORIZATION   : [type  : 'BuildConfig',
+                                  values: [
+                                          debug  : 'token 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',
+                                          release: 'token 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'
+                                  ]],
+                    TIMEOUT   : [type  : 'BuildConfig',
+                                  values: [
+                                          debug  : 30,
+                                          release: 30
+                                  ]],
+
+            ]
+    ]
+}

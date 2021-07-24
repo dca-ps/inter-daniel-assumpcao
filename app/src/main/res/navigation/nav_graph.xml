@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/RepositoryFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="br.com.danielassumpcao.inter.FirstFragment"
+        android:id="@+id/RepositoryFragment"
+        android:name="br.com.danielassumpcao.inter.ui.fragments.RepositoryFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_repository">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_RepositoryFragment_to_PullRequestFragment"
+            app:destination="@id/PullRequestFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="br.com.danielassumpcao.inter.SecondFragment"
+        android:id="@+id/PullRequestFragment"
+        android:name="br.com.danielassumpcao.inter.ui.fragments.PullRequestFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_pull_request">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_PullRequestFragment_to_RepositoryFragment"
+            app:destination="@id/RepositoryFragment" />
     </fragment>
 </navigation>
