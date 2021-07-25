@@ -2,4 +2,4 @@ package br.com.danielassumpcao.inter.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SearchResult(val total_count: Int, val items: List<Repository>): java.io.Serializable
+data class User(val id: Long, val login: String, val avatar_url: String): java.io.Serializable

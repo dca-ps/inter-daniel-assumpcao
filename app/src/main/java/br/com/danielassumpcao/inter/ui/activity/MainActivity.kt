@@ -31,8 +31,19 @@ class MainActivity : AppCompatActivity() {
 
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            val selectedRepo: Repository? = arguments?.getSerializable("selectedRepo") as Repository?
+            selectedRepo?.let {
+                supportActionBar?.title = it.name
+            }
+        }
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return false
     }
 
 

@@ -13,16 +13,21 @@
 
         <action
             android:id="@+id/action_RepositoryFragment_to_PullRequestFragment"
-            app:destination="@id/PullRequestFragment" />
+            app:destination="@id/PullRequestFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/PullRequestFragment"
         android:name="br.com.danielassumpcao.inter.ui.fragments.PullRequestFragment"
-        android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_pull_request">
 
         <action
             android:id="@+id/action_PullRequestFragment_to_RepositoryFragment"
             app:destination="@id/RepositoryFragment" />
+        <argument
+            android:name="selectedRepo"
+            app:argType="br.com.danielassumpcao.inter.models.Repository"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

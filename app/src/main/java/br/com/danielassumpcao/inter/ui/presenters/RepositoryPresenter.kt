@@ -1,6 +1,5 @@
 package br.com.danielassumpcao.inter.ui.presenters
 
-import br.com.danielassumpcao.inter.models.Repository
 import br.com.danielassumpcao.inter.models.SearchResult
 import br.com.danielassumpcao.inter.services.GithubService
 import br.com.danielassumpcao.inter.services.RetrofitConfig
@@ -16,6 +15,7 @@ class RepositoryPresenter(private val view: RepositoryContract.View): Repository
         val service: GithubService = RetrofitConfig.getGithubService()
         val page = (view.getDataSetSize()/PAGE_SIZE)+1
 
+        //Api Limitation
         if (page > 34) return
 
         val call = service.getRepositories("language:Java", "stars",page)
@@ -24,7 +24,6 @@ class RepositoryPresenter(private val view: RepositoryContract.View): Repository
         call.enqueue(object : Callback<SearchResult> {
             override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
                 view.stopLoading()
-
                 response.body()?.let {
                     view.onRepositoriesSuccess(it.items)
                 } ?: run {

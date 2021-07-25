@@ -10,6 +10,9 @@
 
     <color name="detail_gold">#DF9305</color>
     <color name="title_blue">#3E7AAC</color>
+    <color name="divider_grey">#CCCCCC</color>
+
+
 
 
 </resources>

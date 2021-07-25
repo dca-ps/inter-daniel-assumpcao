@@ -24,7 +24,31 @@
         <item name="android:drawableTint">@color/detail_gold</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
+    </style>
 
+    <style name="blueTitle" >
+        <item name="android:textColor">@color/title_blue</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="description" >
+        <item name="android:textColor">@color/black</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">2</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="username" >
+        <item name="android:textColor">@color/title_blue</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="pullRequestDate" >
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Theme.InterDanielAssumpcao.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

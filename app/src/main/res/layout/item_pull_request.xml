@@ -7,69 +7,58 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/repositoryNameTV"
+        android:id="@+id/pullRequestTitleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Nome Repositório"
+        android:text="Titulo Pull Request"
         android:theme="@style/blueTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/repostioryDescriptionTV"
+        android:id="@+id/pullRequestBodyTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
+
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at felis eu leo iaculis dapibus. Fusce id pharetra lorem. Vivamus dapibus quam sem. Ut viverra mauris in nunc bibendum, in tristique urna rutrum. Etiam quis volutpat arcu. Phasellus commodo tincidunt quam ut convallis. Sed magna erat, rutrum vitae egestas eu, placerat ut nulla. Aliquam id sapien nisi. Vivamus convallis sagittis risus, eget cursus risus elementum non. Vestibulum mattis turpis a turpis porttitor tristique. Nullam eget tincidunt nibh. Ut ut suscipit est. Vivamus sollicitudin mi a felis suscipit tincidunt."
         android:theme="@style/description"
-        app:layout_constraintEnd_toStartOf="@+id/userIdTV"
-        app:layout_constraintStart_toStartOf="@+id/repositoryNameTV"
-        app:layout_constraintTop_toBottomOf="@+id/repositoryNameTV" />
-
-    <TextView
-        android:id="@+id/pullRequestNumberTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="640"
-        android:theme="@style/goldText"
-        app:drawableStartCompat="@drawable/icon_source_branch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/repositoryNameTV"
-        app:layout_constraintTop_toBottomOf="@+id/repostioryDescriptionTV" />
-
-    <TextView
-        android:id="@+id/startNumberTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="98"
-        android:theme="@style/goldText"
-        app:drawableStartCompat="@drawable/icon_star_filled"
-        app:layout_constraintStart_toEndOf="@+id/pullRequestNumberTV"
-        app:layout_constraintTop_toTopOf="@+id/pullRequestNumberTV" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/pullRequestTitleTV"
+        app:layout_constraintTop_toBottomOf="@+id/pullRequestTitleTV" />
 
     <ImageView
-        android:id="@+id/shapeableImageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/userIdTV"
-        app:layout_constraintStart_toStartOf="@+id/userIdTV"
-        app:layout_constraintTop_toTopOf="@+id/repositoryNameTV" />
+        android:id="@+id/userAvatarIV"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginVertical="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/pullRequestTitleTV"
+        app:layout_constraintTop_toBottomOf="@+id/pullRequestBodyTV"
+        app:srcCompat="@drawable/avatar_placeholder" />
 
     <TextView
         android:id="@+id/userIdTV"
-        android:layout_width="125dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:text="username"
         android:theme="@style/username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+        app:layout_constraintStart_toEndOf="@+id/userAvatarIV"
+        app:layout_constraintTop_toTopOf="@+id/userAvatarIV" />
+
+    <TextView
+        android:id="@+id/pullRequestDateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/05/2019"
+        android:theme="@style/pullRequestDate"
+        app:layout_constraintBottom_toBottomOf="@+id/userAvatarIV"
+        app:layout_constraintStart_toStartOf="@+id/userIdTV"
+        app:layout_constraintTop_toBottomOf="@+id/userIdTV" />
+
 
     <View
         android:id="@+id/view"
@@ -79,6 +68,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

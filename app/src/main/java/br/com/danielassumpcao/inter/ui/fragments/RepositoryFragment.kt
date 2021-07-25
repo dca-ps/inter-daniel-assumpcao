@@ -1,32 +1,41 @@
 package br.com.danielassumpcao.inter.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import br.com.danielassumpcao.inter.databinding.FragmentRepositoryBinding
 import br.com.danielassumpcao.inter.models.Repository
 import br.com.danielassumpcao.inter.ui.adapter.RepositoryAdapter
 import br.com.danielassumpcao.inter.ui.contract.RepositoryContract
+import br.com.danielassumpcao.inter.ui.listeners.RepositoryClickListener
 import br.com.danielassumpcao.inter.ui.presenters.RepositoryPresenter
 import com.google.android.material.snackbar.Snackbar
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class RepositoryFragment : Fragment(), RepositoryContract.View {
+class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickListener {
 
+    private val LIST_STATE_KEY = "LIST_STATE_KEY"
     private var _binding: FragmentRepositoryBinding? = null
     private lateinit var presenter: RepositoryContract.Presenter
     private lateinit var adapter: RepositoryAdapter
+    private lateinit var layoutManager: LinearLayoutManager
+
     val repositoryDataSet: ArrayList<Repository> = ArrayList()
     private var isLoadingList = false
 
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentRepositoryBinding.inflate(inflater, container, false)
@@ -38,8 +47,9 @@ class RepositoryFragment : Fragment(), RepositoryContract.View {
         presenter = RepositoryPresenter(this)
 
 
-        adapter = RepositoryAdapter(repositoryDataSet, context)
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        adapter = RepositoryAdapter(repositoryDataSet, context, this)
+        layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        layoutManager.onRestoreInstanceState(savedInstanceState?.getParcelable(LIST_STATE_KEY))
         binding.repositoryRV.layoutManager = layoutManager
         binding.repositoryRV.adapter = adapter
         binding.repositoryRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -67,6 +77,13 @@ class RepositoryFragment : Fragment(), RepositoryContract.View {
         presenter.getRepositories()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val recycleViewState = layoutManager.onSaveInstanceState();
+        outState.putParcelable(LIST_STATE_KEY, recycleViewState);
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -75,8 +92,6 @@ class RepositoryFragment : Fragment(), RepositoryContract.View {
     override fun getDataSetSize(): Int {
         return repositoryDataSet.size
     }
-
-
 
     override fun stopLoading() {
         isLoadingList = false
@@ -97,5 +112,10 @@ class RepositoryFragment : Fragment(), RepositoryContract.View {
     override fun onRepositoriesSuccess(repositories: List<Repository>) {
         repositoryDataSet.addAll(repositories)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun onRepositoryClick(repo: Repository) {
+        val action = RepositoryFragmentDirections.actionRepositoryFragmentToPullRequestFragment(repo)
+        findNavController().navigate(action)
     }
 }
