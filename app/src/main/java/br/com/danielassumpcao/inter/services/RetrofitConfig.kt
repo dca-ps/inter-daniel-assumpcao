@@ -29,7 +29,6 @@ object RetrofitConfig {
                 .newBuilder()
                 .addHeader("Accept", "application/vnd.github.v3+json")
                 .addHeader("Authorization", BuildConfig.AUTHORIZATION)
-                .addHeader("Content-Type", "application/json; charset=utf-8")
                 .build()
             chain.proceed(request)
         })

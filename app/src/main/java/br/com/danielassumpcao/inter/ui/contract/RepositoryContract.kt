@@ -5,9 +5,12 @@ import br.com.danielassumpcao.inter.models.Repository
 interface RepositoryContract {
 
     interface View {
+        fun getDataSetSize():Int
         fun stopLoading()
+        fun startLoading()
+
         fun onRepositoriesFailure()
-        fun onRepositoriesSuccess(Repositories: List<Repository>, totalItens: Int)
+        fun onRepositoriesSuccess(repositories: List<Repository>)
     }
 
     interface Presenter {

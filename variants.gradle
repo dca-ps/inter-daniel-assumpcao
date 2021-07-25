@@ -9,8 +9,8 @@ ext {
                                   ]],
                     AUTHORIZATION   : [type  : 'BuildConfig',
                                   values: [
-                                          debug  : 'token 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',
-                                          release: 'token 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'
+                                          debug  : 'token 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',
+                                          release: 'token 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'
                                   ]],
                     TIMEOUT   : [type  : 'BuildConfig',
                                   values: [

@@ -10,19 +10,24 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RepositoryPresenter(private val view: RepositoryContract.View): RepositoryContract.Presenter {
+    val PAGE_SIZE: Int = 30
+
     override fun getRepositories() {
         val service: GithubService = RetrofitConfig.getGithubService()
+        val page = (view.getDataSetSize()/PAGE_SIZE)+1
 
-        val call = service.getRepositories("language:Java", "stars",1)
+        if (page > 34) return
 
+        val call = service.getRepositories("language:Java", "stars",page)
 
+        view.startLoading()
         call.enqueue(object : Callback<SearchResult> {
             override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
-                response.body()?.let {
-                    view.onRepositoriesSuccess(it.items, it.total_count!!)
+                view.stopLoading()
 
+                response.body()?.let {
+                    view.onRepositoriesSuccess(it.items)
                 } ?: run {
-                    view.stopLoading()
                     view.onRepositoriesFailure()
                 }
             }

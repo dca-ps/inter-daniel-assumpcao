@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/RepositoryFragment"
         android:name="br.com.danielassumpcao.inter.ui.fragments.RepositoryFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/repository_fragment_label"
         tools:layout="@layout/fragment_repository">
 
         <action

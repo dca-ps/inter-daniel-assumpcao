@@ -19,6 +19,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="goldText" >
+        <item name="android:textColor">@color/detail_gold</item>
+        <item name="android:drawableTint">@color/detail_gold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
     <style name="Theme.InterDanielAssumpcao.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.InterDanielAssumpcao.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

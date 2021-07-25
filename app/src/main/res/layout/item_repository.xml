@@ -6,10 +6,87 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/repositoryNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Teste"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/title_blue"
+
+        android:text="Nome Repositório"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/repostioryDescriptionTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:lines="2"
+        android:maxLines="2"
+        android:textSize="12sp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at felis eu leo iaculis dapibus. Fusce id pharetra lorem. Vivamus dapibus quam sem. Ut viverra mauris in nunc bibendum, in tristique urna rutrum. Etiam quis volutpat arcu. Phasellus commodo tincidunt quam ut convallis. Sed magna erat, rutrum vitae egestas eu, placerat ut nulla. Aliquam id sapien nisi. Vivamus convallis sagittis risus, eget cursus risus elementum non. Vestibulum mattis turpis a turpis porttitor tristique. Nullam eget tincidunt nibh. Ut ut suscipit est. Vivamus sollicitudin mi a felis suscipit tincidunt."
+        app:layout_constraintEnd_toStartOf="@+id/userIdTV"
+        app:layout_constraintStart_toStartOf="@+id/repositoryNameTV"
+        app:layout_constraintTop_toBottomOf="@+id/repositoryNameTV" />
+
+    <TextView
+        android:id="@+id/pullRequestNumberTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/goldText"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawableStart="@drawable/icon_source_branch"
+        android:text="640"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/repositoryNameTV"
+        app:layout_constraintTop_toBottomOf="@+id/repostioryDescriptionTV" />
+
+    <TextView
+        android:id="@+id/startNumberTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:theme="@style/goldText"
+        android:drawableStart="@drawable/icon_star_filled"
+        android:text="98"
+        app:layout_constraintStart_toEndOf="@+id/pullRequestNumberTV"
+        app:layout_constraintTop_toTopOf="@+id/pullRequestNumberTV" />
+
+    <ImageView
+        android:id="@+id/shapeableImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/userIdTV"
+        app:layout_constraintStart_toStartOf="@+id/userIdTV"
+        app:layout_constraintTop_toTopOf="@+id/repositoryNameTV" />
+
+    <TextView
+        android:id="@+id/userIdTV"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="username"
+        android:gravity="center"
+
+        android:textSize="13sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/title_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
