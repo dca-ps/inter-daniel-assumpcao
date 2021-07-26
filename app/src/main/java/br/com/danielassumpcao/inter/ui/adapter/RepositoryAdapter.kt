@@ -2,7 +2,6 @@ package br.com.danielassumpcao.inter.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,7 +13,6 @@ import br.com.danielassumpcao.inter.models.Repository
 import br.com.danielassumpcao.inter.ui.listeners.RepositoryClickListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.android.material.imageview.ShapeableImageView
 
 class RepositoryAdapter(private val dataSet: List<Repository>, val context: Context?, val listener: RepositoryClickListener): RecyclerView.Adapter<RepositoryAdapter.ViewHolder>()  {
 

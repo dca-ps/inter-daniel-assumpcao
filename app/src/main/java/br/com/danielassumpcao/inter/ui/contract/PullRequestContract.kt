@@ -2,7 +2,6 @@ package br.com.danielassumpcao.inter.ui.contract
 
 import android.content.SharedPreferences
 import br.com.danielassumpcao.inter.models.PullRequest
-import br.com.danielassumpcao.inter.models.Repository
 
 interface PullRequestContract {
     interface View {
@@ -17,7 +16,7 @@ interface PullRequestContract {
     interface Presenter {
         fun getPullRequests(owner: String, repo: String)
 
-        fun savePullRequests(repo: Long, pullRequests: List<PullRequest>)
-        fun getSavedPullRequests(repo: Long) : List<PullRequest>?
+        fun savePullRequests(repoId: Long, pullRequests: List<PullRequest>)
+        fun getSavedPullRequests(repoId: Long) : List<PullRequest>?
     }
 }

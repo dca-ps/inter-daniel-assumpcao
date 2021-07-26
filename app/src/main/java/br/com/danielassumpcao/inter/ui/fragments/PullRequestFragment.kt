@@ -5,24 +5,19 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.danielassumpcao.inter.R
 import br.com.danielassumpcao.inter.databinding.FragmentPullRequestBinding
 import br.com.danielassumpcao.inter.models.PullRequest
 import br.com.danielassumpcao.inter.models.Repository
 import br.com.danielassumpcao.inter.ui.adapter.PullRequestAdapter
-import br.com.danielassumpcao.inter.ui.adapter.RepositoryAdapter
 import br.com.danielassumpcao.inter.ui.contract.PullRequestContract
-import br.com.danielassumpcao.inter.ui.contract.RepositoryContract
 import br.com.danielassumpcao.inter.ui.listeners.PullRequestClickListener
 import br.com.danielassumpcao.inter.ui.presenters.PullRequestPresenter
-import br.com.danielassumpcao.inter.ui.presenters.RepositoryPresenter
 import com.google.android.material.snackbar.Snackbar
 
 class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestClickListener {
@@ -35,10 +30,6 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
     private var selectedRepo: Repository? = null
     val pullRequestDataSet: ArrayList<PullRequest> = ArrayList()
 
-
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
 

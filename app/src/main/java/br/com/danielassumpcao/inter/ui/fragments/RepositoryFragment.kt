@@ -3,7 +3,6 @@ package br.com.danielassumpcao.inter.ui.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.danielassumpcao.inter.databinding.FragmentRepositoryBinding
 import br.com.danielassumpcao.inter.models.Repository
-import br.com.danielassumpcao.inter.ui.activity.MainActivity
 import br.com.danielassumpcao.inter.ui.adapter.RepositoryAdapter
 import br.com.danielassumpcao.inter.ui.contract.RepositoryContract
 import br.com.danielassumpcao.inter.ui.listeners.RepositoryClickListener
 import br.com.danielassumpcao.inter.ui.presenters.RepositoryPresenter
 import com.google.android.material.snackbar.Snackbar
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
 class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickListener {
 
     private val LIST_STATE_KEY = "LIST_STATE_KEY"

@@ -10,16 +10,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.com.danielassumpcao.inter.R
 import br.com.danielassumpcao.inter.models.PullRequest
-import br.com.danielassumpcao.inter.models.Repository
-import br.com.danielassumpcao.inter.models.User
 import br.com.danielassumpcao.inter.ui.listeners.PullRequestClickListener
-import br.com.danielassumpcao.inter.ui.listeners.RepositoryClickListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class PullRequestAdapter(private val dataSet: List<PullRequest>, val context: Context?, val listener: PullRequestClickListener): RecyclerView.Adapter<PullRequestAdapter.ViewHolder>()   {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
