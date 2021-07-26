@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickListener {
 
     private val LIST_STATE_KEY = "LIST_STATE_KEY"
+
     private var _binding: FragmentRepositoryBinding? = null
     private lateinit var presenter: RepositoryContract.Presenter
     private lateinit var adapter: RepositoryAdapter
@@ -72,9 +73,13 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
                 }
             }
         })
+        if(repositoryDataSet.isEmpty()){
+            presenter.getRepositories()
+        }
+        else{
+            stopLoading()
+        }
 
-
-        presenter.getRepositories()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
