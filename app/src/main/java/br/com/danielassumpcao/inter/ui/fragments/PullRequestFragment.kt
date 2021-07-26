@@ -25,7 +25,7 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
     private var _binding: FragmentPullRequestBinding? = null
     val args: PullRequestFragmentArgs by navArgs()
 
-    private lateinit var presenter: PullRequestContract.Presenter
+    private var presenter: PullRequestContract.Presenter? = null
     private lateinit var adapter: PullRequestAdapter
     private var selectedRepo: Repository? = null
     val pullRequestDataSet: ArrayList<PullRequest> = ArrayList()
@@ -53,18 +53,20 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
             binding.swipeRefreshLayout.setOnRefreshListener {
                 pullRequestDataSet.clear()
                 adapter.notifyDataSetChanged()
-                presenter.getPullRequests(it.owner.login, it.name)
+                presenter?.getPullRequests(it.owner.login, it.name)
             }
 
-            val list = presenter.getSavedPullRequests(it.id)
+            val list = presenter?.getSavedPullRequests(it.id)
 
-            list?.let {
-                pullRequestDataSet.clear()
-                pullRequestDataSet.addAll(it)
-                checkEmptyPullRequest(it)
-                stopLoading()
+            list?.let { l ->
+                if(l.isEmpty()) presenter?.getPullRequests(it.owner.login, it.name)
+                else {
+                    pullRequestDataSet.clear()
+                    pullRequestDataSet.addAll(l)
+                    stopLoading()
+                }
             }?: run{
-                presenter.getPullRequests(it.owner.login, it.name)
+                presenter?.getPullRequests(it.owner.login, it.name)
             }
 
         }?: run{
@@ -76,17 +78,20 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
-
         selectedRepo?.let{
-            presenter.savePullRequests(it.id, pullRequestDataSet)
+            presenter?.savePullRequests(it.id, pullRequestDataSet)
         }
+        _binding = null
+        presenter = null
+
     }
 
     override fun stopLoading() {
-        binding.pullRequestRV.visibility = View.VISIBLE
-        binding.progressBar.visibility = View.GONE
-        binding.swipeRefreshLayout.isRefreshing = false
+        if(_binding != null){
+            binding.pullRequestRV.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     override fun startLoading() {
@@ -106,13 +111,14 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
     }
 
     fun checkEmptyPullRequest(pullRequests: List<PullRequest>){
-        if(pullRequests.isEmpty()) binding.emptyPullRequestTV.visibility = View.VISIBLE
-        else binding.emptyPullRequestTV.visibility = View.GONE
+        if(_binding != null) {
+            if (pullRequests.isEmpty()) binding.emptyPullRequestTV.visibility = View.VISIBLE
+            else binding.emptyPullRequestTV.visibility = View.GONE
+        }
     }
 
     override fun onPullRequestsSuccess(pullRequests: List<PullRequest>) {
         checkEmptyPullRequest(pullRequests)
-
         pullRequestDataSet.addAll(pullRequests)
         adapter.notifyDataSetChanged()
     }

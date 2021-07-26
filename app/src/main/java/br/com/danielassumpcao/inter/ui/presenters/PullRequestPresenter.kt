@@ -23,6 +23,7 @@ class PullRequestPresenter(private val view: PullRequestContract.View): PullRequ
         view.startLoading()
         call.enqueue(object : Callback<ArrayList<PullRequest>> {
             override fun onResponse(call: Call<ArrayList<PullRequest>>, response: Response<ArrayList<PullRequest>>) {
+
                 view.stopLoading()
                 response.body()?.let {
                     view.onPullRequestsSuccess(it)
