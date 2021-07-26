@@ -13,8 +13,11 @@
 
         <action
             android:id="@+id/action_RepositoryFragment_to_PullRequestFragment"
-            app:destination="@id/PullRequestFragment">
-        </action>
+            app:destination="@id/PullRequestFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"></action>
     </fragment>
     <fragment
         android:id="@+id/PullRequestFragment"
@@ -23,7 +26,11 @@
 
         <action
             android:id="@+id/action_PullRequestFragment_to_RepositoryFragment"
-            app:destination="@id/RepositoryFragment" />
+            app:destination="@id/RepositoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="selectedRepo"
             app:argType="br.com.danielassumpcao.inter.models.Repository"
