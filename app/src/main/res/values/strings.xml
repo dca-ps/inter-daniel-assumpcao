@@ -8,4 +8,8 @@
 
     <string name="empty_pull_requests">Não há pull requests</string>
 
+
+    <string name="request_error">Erro. Por favor, tente novamente.</string>
+
+
 </resources>

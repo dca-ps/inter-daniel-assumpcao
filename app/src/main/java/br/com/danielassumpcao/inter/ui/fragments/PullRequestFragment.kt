@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.danielassumpcao.inter.R
 import br.com.danielassumpcao.inter.databinding.FragmentPullRequestBinding
 import br.com.danielassumpcao.inter.models.PullRequest
 import br.com.danielassumpcao.inter.models.Repository
@@ -70,7 +71,7 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
             }
 
         }?: run{
-            Snackbar.make(binding.pullRequestRV, "Falhou", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.pullRequestRV, R.string.request_error, Snackbar.LENGTH_SHORT).show()
             requireActivity().onBackPressed()
         }
 
@@ -107,7 +108,7 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
     }
 
     override fun onPullRequestsFailure() {
-        Snackbar.make(binding.pullRequestRV, "Falhou", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.pullRequestRV, R.string.request_error, Snackbar.LENGTH_SHORT).show()
     }
 
     fun checkEmptyPullRequest(pullRequests: List<PullRequest>){

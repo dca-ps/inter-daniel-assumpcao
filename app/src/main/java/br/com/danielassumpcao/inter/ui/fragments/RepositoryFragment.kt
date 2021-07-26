@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.danielassumpcao.inter.R
 import br.com.danielassumpcao.inter.databinding.FragmentRepositoryBinding
 import br.com.danielassumpcao.inter.models.Repository
 import br.com.danielassumpcao.inter.ui.adapter.RepositoryAdapter
@@ -131,7 +132,7 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
     }
 
     override fun onRepositoriesFailure() {
-        Snackbar.make(binding.repositoryRV, "Falhou", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.repositoryRV, R.string.request_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onRepositoriesSuccess(repositories: List<Repository>) {
