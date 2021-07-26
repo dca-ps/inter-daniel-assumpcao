@@ -1,5 +1,7 @@
 package br.com.danielassumpcao.inter.ui.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.danielassumpcao.inter.databinding.FragmentRepositoryBinding
 import br.com.danielassumpcao.inter.models.Repository
+import br.com.danielassumpcao.inter.ui.activity.MainActivity
 import br.com.danielassumpcao.inter.ui.adapter.RepositoryAdapter
 import br.com.danielassumpcao.inter.ui.contract.RepositoryContract
 import br.com.danielassumpcao.inter.ui.listeners.RepositoryClickListener
@@ -36,7 +39,18 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter = RepositoryPresenter(this)
+
+
+        val list = presenter.getSavedRepositories()
+
+        list?.let {
+            repositoryDataSet.clear()
+            repositoryDataSet.addAll(it)
+        }
+
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentRepositoryBinding.inflate(inflater, container, false)
@@ -45,7 +59,6 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = RepositoryPresenter(this)
 
 
         adapter = RepositoryAdapter(repositoryDataSet, context, this)
@@ -73,13 +86,13 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
                 }
             }
         })
+
         if(repositoryDataSet.isEmpty()){
             presenter.getRepositories()
         }
         else{
             stopLoading()
         }
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -88,14 +101,18 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
         outState.putParcelable(LIST_STATE_KEY, recycleViewState);
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
+        presenter.saveRepositories(repositoryDataSet)
         _binding = null
     }
 
     override fun getDataSetSize(): Int {
         return repositoryDataSet.size
+    }
+
+    override fun getSharedPreferences(): SharedPreferences {
+        return requireActivity().getPreferences(Context.MODE_PRIVATE)
     }
 
     override fun stopLoading() {

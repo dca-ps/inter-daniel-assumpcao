@@ -1,6 +1,8 @@
 package br.com.danielassumpcao.inter.ui.fragments
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -33,6 +35,7 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
 
     private lateinit var presenter: PullRequestContract.Presenter
     private lateinit var adapter: PullRequestAdapter
+    private var selectedRepo: Repository? = null
     val pullRequestDataSet: ArrayList<PullRequest> = ArrayList()
 
 
@@ -41,6 +44,7 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
     // onDestroyView.
     private val binding get() = _binding!!
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPullRequestBinding.inflate(inflater, container, false)
         return binding.root
@@ -48,17 +52,25 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val selectedRepo: Repository? = args.selectedRepo
+        selectedRepo= args.selectedRepo
 
         selectedRepo?.let{
             presenter = PullRequestPresenter(this)
-
 
             adapter = PullRequestAdapter(pullRequestDataSet, context, this)
             val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             binding.pullRequestRV.layoutManager = layoutManager
             binding.pullRequestRV.adapter = adapter
-            presenter.getPullRequests(it.owner.login, it.name)
+
+            val list = presenter.getSavedPullRequests(it.id)
+
+            list?.let {
+                pullRequestDataSet.clear()
+                pullRequestDataSet.addAll(it)
+                stopLoading()
+            }?: run{
+                presenter.getPullRequests(it.owner.login, it.name)
+            }
 
         }?: run{
             Snackbar.make(binding.pullRequestRV, "Falhou", Snackbar.LENGTH_SHORT).show()
@@ -70,6 +82,11 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        selectedRepo?.let{
+            presenter.savePullRequests(it.id, pullRequestDataSet)
+
+        }
     }
 
 
@@ -81,6 +98,14 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
 
     override fun startLoading() {
         binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun getSharedPreferences(): SharedPreferences {
+        return requireActivity().getPreferences(Context.MODE_PRIVATE)
+    }
+
+    override fun getStringFromResouces(id: Int, repo: Long): String {
+        return getString(id, repo)
     }
 
     override fun onPullRequestsFailure() {
