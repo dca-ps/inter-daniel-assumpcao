@@ -25,9 +25,6 @@ import br.com.danielassumpcao.inter.ui.presenters.PullRequestPresenter
 import br.com.danielassumpcao.inter.ui.presenters.RepositoryPresenter
 import com.google.android.material.snackbar.Snackbar
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestClickListener {
 
     private var _binding: FragmentPullRequestBinding? = null
@@ -52,7 +49,7 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        selectedRepo= args.selectedRepo
+        selectedRepo = args.selectedRepo
 
         selectedRepo?.let{
             presenter = PullRequestPresenter(this)
@@ -61,6 +58,12 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
             val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             binding.pullRequestRV.layoutManager = layoutManager
             binding.pullRequestRV.adapter = adapter
+
+            binding.swipeRefreshLayout.setOnRefreshListener {
+                pullRequestDataSet.clear()
+                adapter.notifyDataSetChanged()
+                presenter.getPullRequests(it.owner.login, it.name)
+            }
 
             val list = presenter.getSavedPullRequests(it.id)
 
@@ -85,19 +88,18 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
 
         selectedRepo?.let{
             presenter.savePullRequests(it.id, pullRequestDataSet)
-
         }
     }
-
-
 
     override fun stopLoading() {
         binding.pullRequestRV.visibility = View.VISIBLE
         binding.progressBar.visibility = View.GONE
+        binding.swipeRefreshLayout.isRefreshing = false
+
     }
 
     override fun startLoading() {
-        binding.progressBar.visibility = View.VISIBLE
+        if (!binding.swipeRefreshLayout.isRefreshing) binding.progressBar.visibility = View.VISIBLE
     }
 
     override fun getSharedPreferences(): SharedPreferences {

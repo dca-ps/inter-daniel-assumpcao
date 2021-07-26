@@ -87,6 +87,12 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
             }
         })
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            repositoryDataSet.clear()
+            adapter.notifyDataSetChanged()
+            presenter.getRepositories()
+        }
+
         if(repositoryDataSet.isEmpty()){
             presenter.getRepositories()
         }
@@ -117,6 +123,7 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
 
     override fun stopLoading() {
         isLoadingList = false
+        binding.swipeRefreshLayout.isRefreshing = false
         binding.progressBar.visibility = View.INVISIBLE
         binding.repositoryRV.visibility = View.VISIBLE
 
@@ -124,7 +131,7 @@ class RepositoryFragment : Fragment(), RepositoryContract.View, RepositoryClickL
 
     override fun startLoading() {
         isLoadingList = true
-        binding.progressBar.visibility = View.VISIBLE
+        if (!binding.swipeRefreshLayout.isRefreshing) binding.progressBar.visibility = View.VISIBLE
     }
 
     override fun onRepositoriesFailure() {

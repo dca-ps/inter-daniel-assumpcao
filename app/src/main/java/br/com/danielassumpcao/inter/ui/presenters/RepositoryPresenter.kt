@@ -1,16 +1,13 @@
 package br.com.danielassumpcao.inter.ui.presenters
 
-import android.content.Context
 import br.com.danielassumpcao.inter.R
 import br.com.danielassumpcao.inter.models.Repository
 import br.com.danielassumpcao.inter.models.SearchResult
 import br.com.danielassumpcao.inter.services.GithubService
 import br.com.danielassumpcao.inter.services.RetrofitConfig
 import br.com.danielassumpcao.inter.ui.contract.RepositoryContract
-import br.com.danielassumpcao.inter.ui.fragments.RepositoryFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.serialization.json.Json
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
