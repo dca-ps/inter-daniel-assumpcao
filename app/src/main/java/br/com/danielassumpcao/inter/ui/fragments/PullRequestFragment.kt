@@ -61,6 +61,7 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
             list?.let {
                 pullRequestDataSet.clear()
                 pullRequestDataSet.addAll(it)
+                checkEmptyPullRequest(it)
                 stopLoading()
             }?: run{
                 presenter.getPullRequests(it.owner.login, it.name)
@@ -86,7 +87,6 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
         binding.pullRequestRV.visibility = View.VISIBLE
         binding.progressBar.visibility = View.GONE
         binding.swipeRefreshLayout.isRefreshing = false
-
     }
 
     override fun startLoading() {
@@ -105,7 +105,14 @@ class PullRequestFragment : Fragment(), PullRequestContract.View, PullRequestCli
         Snackbar.make(binding.pullRequestRV, "Falhou", Snackbar.LENGTH_SHORT).show()
     }
 
+    fun checkEmptyPullRequest(pullRequests: List<PullRequest>){
+        if(pullRequests.isEmpty()) binding.emptyPullRequestTV.visibility = View.VISIBLE
+        else binding.emptyPullRequestTV.visibility = View.GONE
+    }
+
     override fun onPullRequestsSuccess(pullRequests: List<PullRequest>) {
+        checkEmptyPullRequest(pullRequests)
+
         pullRequestDataSet.addAll(pullRequests)
         adapter.notifyDataSetChanged()
     }

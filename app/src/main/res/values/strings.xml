@@ -5,4 +5,7 @@
     <string name="repository_fragment_label">GitHub - Daniel Assumpção</string>
     <string name="repository_key">repository_key</string>
     <string name="pull_request_key">pull_request_key_%1$s</string>
+
+    <string name="empty_pull_requests">Não há pull requests</string>
+
 </resources>
