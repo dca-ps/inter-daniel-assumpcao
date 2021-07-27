@@ -11,5 +11,5 @@ Devido a simplicidade do dataset dessa solução, optei por uma persistência lo
 
 Devido a limitações da API o número máximo de repositórios exibidos na lista da página inicial é de 1000.  Outra limitação da API é o número de chamadas que podem ser feitas por um espaço de tempo. Para contornar essa situação, deve ser gerar um “personal access token” seguindo os passos deste [link](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
-Após gerado, adicionar o token no padrão ‘token <seu-token-aqui>’ no arquivo variante.gradle no campo AUTHORIZATION.
+Após gerado, adicionar o token no padrão ‘token *seu-token-aqui*’ no arquivo variante.gradle no campo AUTHORIZATION.
 
