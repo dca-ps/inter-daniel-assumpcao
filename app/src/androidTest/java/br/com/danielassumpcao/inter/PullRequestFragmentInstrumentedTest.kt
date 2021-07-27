@@ -26,9 +26,9 @@ class PullRequestFragmentInstrumentedTest {
         val fragmentArgs = bundleOf("selectedRepo" to repo)
 
         val scenario = launchFragmentInContainer<PullRequestFragment>(fragmentArgs)
-        Espresso.onView(ViewMatchers.withId(R.id.pullRequestRV)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.pullRequestRV)).check(ViewAssertions.matches(not(ViewMatchers.isDisplayed())))
         Espresso.onView(ViewMatchers.withId(R.id.swipeRefreshLayout)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.progressBar)).check(ViewAssertions.matches(not(ViewMatchers.isDisplayed())))
+        Espresso.onView(ViewMatchers.withId(R.id.progressBar)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
     }
 }
